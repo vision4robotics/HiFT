@@ -17,8 +17,7 @@ Download testing datasets and put them into `test_dataset` directory. If you wan
 
 ```bash 
 python test.py                                
-	--dataset UAV10fps                      
-    --dataset_name
+	--dataset UAV10fps                 #dataset_name
 	--snapshot snapshot/general_model.pth  # tracker_name
 ```
 The testing result will be saved in the `results/dataset_name/tracker_name` directory.
