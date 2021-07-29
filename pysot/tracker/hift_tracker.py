@@ -10,8 +10,7 @@ from pysot.tracker.base_tracker import SiameseTracker
 class HiFTTracker(SiameseTracker):
     def __init__(self, model):
         super(HiFTTracker, self).__init__()
-        #self.score_size = (cfg.TRACK.INSTANCE_SIZE - cfg.TRACK.EXEMPLAR_SIZE) // \
-         #   cfg.ANCHOR.STRIDE + 1 
+
         self.score_size=cfg.TRAIN.OUTPUT_SIZE
         self.anchor_num=1
         hanning = np.hanning(self.score_size)
@@ -131,13 +130,11 @@ class HiFTTracker(SiameseTracker):
 
         outputs = self.model.track(x_crop)
         pred_bbox=self.generate_anchor(outputs['loc']).transpose()
-        # self.anchors = self.generate_anchor() 
-        # score1 = self._convert_score(outputs['cls1'])*cfg.TRACK.w1
-        score2 = self._convert_score(outputs['cls2'])*cfg.TRACK.w2
-        score3=(outputs['cls3']).view(-1).cpu().detach().numpy()*cfg.TRACK.w3
-        score=(score2+score3)/2  #0.5 0.7
 
-        # pred_bbox = self._convert_bbox(outputs['loc'], self.anchors)
+        score2 = self._convert_score(outputs['cls2'])*cfg.TRACK.w1
+        score3=(outputs['cls3']).view(-1).cpu().detach().numpy()*cfg.TRACK.w2
+        score=(score2+score3)/2 
+
 
        
         def change(r):

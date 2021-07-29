@@ -11,7 +11,7 @@ __C = CN()
 
 cfg = __C
 
-__C.META_ARC = "SiamAPN_alexnet"
+__C.META_ARC = "HiFT_alexnet"
 
 __C.CUDA = True
 
@@ -20,8 +20,7 @@ __C.CUDA = True
 # ------------------------------------------------------------------------ #
 __C.TRAIN = CN()
 
-# Anchor Target
-# Positive anchor threshold
+
 __C.TRAIN.THR_HIGH = 0.6
 
 __C.TRAIN.apnchannel = 256
@@ -80,13 +79,13 @@ __C.TRAIN.WEIGHT_DECAY = 0.0001
 
 __C.TRAIN.w1=1.0
 
+__C.TRAIN.R1=1.5
+
+__C.TRAIN.R2=1.2
+
 __C.TRAIN.w2=1.0
 
 __C.TRAIN.w3=1.0
-
-__C.TRAIN.w4=1.0
-
-__C.TRAIN.w5=1.0
 
 __C.TRAIN.range=2.0
 
@@ -232,11 +231,10 @@ __C.TRACK.WINDOW_INFLUENCE = 0.44
 # Interpolation learning rate
 __C.TRACK.LR = 0.4
 
-__C.TRACK.w1=1.2 
+__C.TRACK.w1=1.0
 
 __C.TRACK.w2=1.0
 
-__C.TRACK.w3=1.6 
 
 __C.TRACK.LARGER=1.4
 # Exemplar size

@@ -21,9 +21,6 @@ class ModelBuilder(nn.Module):
 
         self.backbone = AlexNet().cuda()
         self.grader=hiftmodule(cfg).cuda()
-
-
-
         self.cls3loss=nn.BCEWithLogitsLoss()
         self.IOULoss=IOULoss()          
         
@@ -118,9 +115,9 @@ class ModelBuilder(nn.Module):
         pre_bbox=self.getcentercuda(loc) 
         bbo=self.getcentercuda(labelxff) 
         
-        loc_loss=cfg.TRAIN.w3*self.IOULoss(pre_bbox,bbo,weightxff) 
+        loc_loss=cfg.TRAIN.w1*self.IOULoss(pre_bbox,bbo,weightxff) 
        
-        cls_loss=cfg.TRAIN.w4*cls_loss2+cfg.TRAIN.w5*cls_loss3
+        cls_loss=cfg.TRAIN.w2*cls_loss2+cfg.TRAIN.w3*cls_loss3
  
         
 
@@ -130,6 +127,5 @@ class ModelBuilder(nn.Module):
                 +cfg.TRAIN.CLS_WEIGHT*cls_loss
         outputs['cls_loss'] = cls_loss
         outputs['loc_loss'] = loc_loss
-                                                    #2 4 1  都用loss2
 
         return outputs

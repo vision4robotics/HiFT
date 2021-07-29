@@ -50,11 +50,11 @@ class AnchorTarget():
                  weightxff[0,ii,jj]=(((ii-(index2[1]+index2[3])/2)*ran)**2+((jj-(index2[0]+index2[2])/2)*ran)**2)
         
         
-        se=weightxff[np.where(weightxff<((w//2+h//2)*ran/1.5)**2)]
+        se=weightxff[np.where(weightxff<((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]
         
-        weightxff[np.where(weightxff<((w//2+h//2)*ran/1.5)**2)]=1-((se-se.min())/(se.max()-se.min()+1e-4))
+        weightxff[np.where(weightxff<((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]=1-((se-se.min())/(se.max()-se.min()+1e-4))
         
-        weightxff[np.where(weightxff>((w//2+h//2)*ran/1.5)**2)]=0
+        weightxff[np.where(weightxff>((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]=0
         
         pos=np.where(weightxff.squeeze()>0.8)
         num=len(pos[0])
@@ -73,11 +73,11 @@ class AnchorTarget():
                   labelcls3[0,ii,jj]=(((ii-(index[1]+index[3])/2)*ran)**2+((jj-(index[0]+index[2])/2)*ran)**2)
                  
                  
-        see=labelcls3[np.where(labelcls3<((w//2+h//2)*ran/1.2)**2)]
+        see=labelcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]
         
-        labelcls3[np.where(labelcls3<((w//2+h//2)*ran/1.2)**2)]=1-((see-see.min())/(see.max()-see.min()+1e-4))
+        labelcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]=1-((see-see.min())/(see.max()-see.min()+1e-4))
         weightcls3=np.zeros((1,size,size))
-        weightcls3[np.where(labelcls3<((w//2+h//2)*ran/1.2)**2)]=1
+        weightcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]=1
         labelcls3=labelcls3*weightcls3
 
 

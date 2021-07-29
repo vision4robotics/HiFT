@@ -29,10 +29,6 @@ def select_cross_entropy_loss(pred, label):
     loss_neg = get_cls_loss(pred, label, neg)
     return loss_pos * 0.5 + loss_neg * 0.5
 
-
-
-
-
             
 class IOULoss(nn.Module):
     def forward(self, pred, target, weight=None):
