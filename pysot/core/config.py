@@ -220,7 +220,7 @@ __C.ANCHOR.STRIDE = 16
 # ------------------------------------------------------------------------ #
 __C.TRACK = CN()
 
-__C.TRACK.TYPE = 'SiamAPNtracker'
+__C.TRACK.TYPE = 'HiFTtracker'
 
 # Scale penalty
 __C.TRACK.PENALTY_K = 0.04

@@ -242,8 +242,8 @@ class TrkDataset(Dataset):
 
         
         # get image
-        template_image = cv2.imread(self.rot+template[0])
-        search_image = cv2.imread(self.rot+search[0])
+        template_image = cv2.imread(template[0])
+        search_image = cv2.imread(search[0])
         if template_image is None:
             print('error image:',template[0])
 
