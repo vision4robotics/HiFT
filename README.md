@@ -78,13 +78,15 @@ Email: [1753419@tongji.edu.cn](1753419@tongji.edu.cn)
 
 ## Performance Comparison
 
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/1.jpg)
-
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/5.jpg)
 
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/6.jpg)
 
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/7.jpg)
+
+![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/1.jpg)
+
+For more evaluations, please refer to our paper.
 
 ## Visualization of Confidence Map
 
