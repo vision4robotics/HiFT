@@ -9,6 +9,8 @@ Most existing Siamese-based tracking methods execute the classification and regr
 
 ![Workflow of our tracker](https://github.com/vision4robotics/HiFT/blob/main/image/3.jpg)
 
+This figure shows the workflow of our tracker.
+
 ## About Code
 ### 1. Environment setup
 This code has been tested on Ubuntu 18.04, Python 3.8.3, Pytorch 0.7.0/1.6.0, CUDA 10.2.
@@ -70,7 +72,9 @@ Ziang Cao
 
 Email: [1753419@tongji.edu.cn](1753419@tongji.edu.cn)
 
-## Qualitative performance
+## Qualitative Evaluation
 
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/2.jpg)
+
+## Performance Comparison
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/1.jpg)
