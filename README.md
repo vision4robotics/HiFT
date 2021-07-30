@@ -78,17 +78,9 @@ Email: [1753419@tongji.edu.cn](1753419@tongji.edu.cn)
 
 ## Performance Comparison
 
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/5.png)
+![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/1.png)
 
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/6.png)
-
-Result on UAV123@10fps
-
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/7.png)
-
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/8.png)
-
-Result on DTB70
+Result on DTB70 and UAV20L
 
 For more evaluations, please refer to our paper.
 
