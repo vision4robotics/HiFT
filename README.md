@@ -81,6 +81,20 @@ Result on DTB70 and UAV20L
 
 For more evaluations, please refer to our paper.
 
+## References 
+
+```
+@INPROCEEDINGS{cao2021iccv,       
+	author={Cao, Ziang and Fu, Changhong and Ye, Junjie and Li, Bowen and Li, Yiming},   
+	booktitle={Proceedings of the IEEE International Conference on Computer Vision (ICCV)}, 
+	title={{HiFT: Hierarchical Feature Transformer for Aerial Tracking}},
+	year={2021},
+	volume={},
+	number={},
+	pages={1-10}
+}
+
+```
 
 ## Acknowledgement
 The code is implemented based on [pysot](https://github.com/STVIR/pysot). We would like to express our sincere thanks to the contributors.
