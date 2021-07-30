@@ -62,10 +62,7 @@ python eval.py 	                          \
 	--tracker_prefix 'general_model'   # tracker_name
 ```
 
-### 5. Acknowledgement
-The code is implemented based on [pysot](https://github.com/STVIR/pysot). We would like to express our sincere thanks to the contributors.
-
-### 6. Contact
+### 5. Contact
 If you have any questions, please contact me.
 
 Ziang Cao
@@ -87,3 +84,7 @@ For more evaluations, please refer to our paper.
 ## Visualization of Confidence Map
 
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/4.png)
+
+
+## Acknowledgement
+The code is implemented based on [pysot](https://github.com/STVIR/pysot). We would like to express our sincere thanks to the contributors.
