@@ -71,6 +71,8 @@ Email: [1753419@tongji.edu.cn](1753419@tongji.edu.cn)
 
 ## Qualitative Evaluation
 
+<div align=center><img width="150" height="150" src="https://github.com/vision4robotics/HiFT/blob/main/image/2.png"/></div>
+
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/2.png)
 
 ## Performance Comparison
