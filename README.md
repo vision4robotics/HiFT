@@ -82,9 +82,13 @@ Email: [1753419@tongji.edu.cn](1753419@tongji.edu.cn)
 
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/6.jpg)
 
+Result on UAV123@10fps
+
 ![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/7.jpg)
 
-![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/1.jpg)
+![Compared with deeper trackers](https://github.com/vision4robotics/HiFT/blob/main/image/8.jpg)
+
+Result on DTB70
 
 For more evaluations, please refer to our paper.
 
