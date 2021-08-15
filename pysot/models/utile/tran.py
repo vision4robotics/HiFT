@@ -237,7 +237,7 @@ class TransformerEncoderLayer(Module):
     def forward(self, src: Tensor,srcc: Tensor, src_mask: Optional[Tensor] = None, src_key_padding_mask: Optional[Tensor] = None) -> Tensor:
         
         b,c,s=src.permute(1,2,0).size()
-		input_feature=self.norm0(src+srcc)
+        input_feature=self.norm0(src+srcc)
         src2 = self.self_attn(input_feature, input_feature, src, attn_mask=src_mask,
                                key_padding_mask=src_key_padding_mask)[0]
         src = src + self.dropout1(src2)
