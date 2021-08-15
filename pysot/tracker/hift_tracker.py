@@ -131,8 +131,8 @@ class HiFTTracker(SiameseTracker):
         outputs = self.model.track(x_crop)
         pred_bbox=self.generate_anchor(outputs['loc']).transpose()
 
-        score2 = self._convert_score(outputs['cls2'])*cfg.TRACK.w1
-        score3=(outputs['cls3']).view(-1).cpu().detach().numpy()*cfg.TRACK.w2
+        score2 = self._convert_score(outputs['cls1'])*cfg.TRACK.w1
+        score3=(outputs['cls2']).view(-1).cpu().detach().numpy()*cfg.TRACK.w2
         score=(score2+score3)/2 
 
 
