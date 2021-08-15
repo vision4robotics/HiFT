@@ -21,7 +21,7 @@ class ModelBuilder(nn.Module):
 
         self.backbone = AlexNet().cuda()
         self.grader=hiftmodule(cfg).cuda()
-        self.cls3loss=nn.BCEWithLogitsLoss()
+        self.cls2loss=nn.BCEWithLogitsLoss()
         self.IOULoss=IOULoss()          
         
     def template(self, z):
@@ -41,8 +41,8 @@ class ModelBuilder(nn.Module):
 
             return {
 
-                'cls2': cls1,
-                'cls3': cls2,
+                'cls1': cls1,
+                'cls2': cls2,
                 'loc': loc
                }
 
@@ -110,7 +110,7 @@ class ModelBuilder(nn.Module):
         
  
         cls_loss1 = select_cross_entropy_loss(cls1, labelcls1)
-        cls_loss2 = self.cls3loss(cls2, labelcls2)  
+        cls_loss2 = self.cls2loss(cls2, labelcls2)  
         
         pre_bbox=self.getcentercuda(loc) 
         bbo=self.getcentercuda(labelxff) 
