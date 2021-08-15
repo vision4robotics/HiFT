@@ -13,7 +13,7 @@ from pysot.utils.bbox import IoU
 
 
 
-class AnchorTarget():
+class Targetgenerate():
     def __init__(self):
 
         return
@@ -44,17 +44,16 @@ class AnchorTarget():
         w=int(index2[2]-index2[0]+1)
         h=int(index2[3]-index2[1]+1)
         
-        ran=4
         for ii in np.arange(0,size):
             for jj in np.arange(0,size):
-                 weightxff[0,ii,jj]=(((ii-(index2[1]+index2[3])/2)*ran)**2+((jj-(index2[0]+index2[2])/2)*ran)**2)
+                 weightxff[0,ii,jj]=(((ii-(index2[1]+index2[3])/2))**2+((jj-(index2[0]+index2[2])/2))**2)
         
         
-        se=weightxff[np.where(weightxff<((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]
+        se=weightxff[np.where(weightxff<((w//2+h//2)/cfg.TRAIN.R1)**2)]
         
-        weightxff[np.where(weightxff<((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]=1-((se-se.min())/(se.max()-se.min()+1e-4))
+        weightxff[np.where(weightxff<((w//2+h//2)/cfg.TRAIN.R1)**2)]=1-((se-se.min())/(se.max()-se.min()+6.25e-6))
         
-        weightxff[np.where(weightxff>((w//2+h//2)*ran/cfg.TRAIN.R1)**2)]=0
+        weightxff[np.where(weightxff>((w//2+h//2)/cfg.TRAIN.R1)**2)]=0
         
         pos=np.where(weightxff.squeeze()>0.8)
         num=len(pos[0])
@@ -70,14 +69,14 @@ class AnchorTarget():
 
         for ii in np.arange(0,size):
             for jj in np.arange(0,size):
-                  labelcls3[0,ii,jj]=(((ii-(index[1]+index[3])/2)*ran)**2+((jj-(index[0]+index[2])/2)*ran)**2)
+                  labelcls3[0,ii,jj]=(((ii-(index[1]+index[3])/2))**2+((jj-(index[0]+index[2])/2))**2)
                  
                  
-        see=labelcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]
+        see=labelcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]
         
-        labelcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]=1-((see-see.min())/(see.max()-see.min()+1e-4))
+        labelcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1-((see-see.min())/(see.max()-see.min()+6.25e-6))
         weightcls3=np.zeros((1,size,size))
-        weightcls3[np.where(labelcls3<((w//2+h//2)*ran/cfg.TRAIN.R2)**2)]=1
+        weightcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1
         labelcls3=labelcls3*weightcls3
 
 
