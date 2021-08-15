@@ -263,7 +263,7 @@ class TrkDataset(Dataset):
                                        cfg.TRAIN.SEARCH_SIZE,
                                        gray=gray)
         
-        labelcls2,labelxff,labelcls3,weightxff \
+        labelcls1,labelxff,labelcls2,weightxff \
                  = self.target_generate.get(bbox, cfg.TRAIN.OUTPUT_SIZE)
         
         
@@ -273,9 +273,9 @@ class TrkDataset(Dataset):
                 'template': template,
                 'search': search,
                 'bbox': np.array([bbox.x1,bbox.y1,bbox.x2,bbox.y2]),  
-                'label_cls2':labelcls2,
+                'label_cls1':labelcls1,
                 'labelxff':labelxff,
-                'labelcls3':labelcls3,
+                'labelcls2':labelcls2,
                 'weightxff':weightxff,
 
                 }

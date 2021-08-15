@@ -37,12 +37,12 @@ class ModelBuilder(nn.Module):
         with t.no_grad():
             
             xf = self.backbone(x)  
-            loc,cls2,cls3=self.grader(xf,self.zf)
+            loc,cls1,cls2=self.grader(xf,self.zf)
 
             return {
 
-                'cls2': cls2,
-                'cls3': cls3,
+                'cls2': cls1,
+                'cls3': cls2,
                 'loc': loc
                }
 
@@ -95,29 +95,29 @@ class ModelBuilder(nn.Module):
         template = data['template'].cuda()
         search =data['search'].cuda()
         bbox=data['bbox'].cuda()
-        labelcls2=data['label_cls2'].cuda()
+        labelcls1=data['label_cls1'].cuda()
         labelxff=data['labelxff'].cuda()
-        labelcls3=data['labelcls3'].cuda()
+        labelcls2=data['labelcls2'].cuda()
         weightxff=data['weightxff'].cuda()
         
 
         
         zf = self.backbone(template)
         xf = self.backbone(search)
-        loc,cls2,cls3=self.grader(xf,zf)       
-        cls2 = self.log_softmax(cls2) 
+        loc,cls1,cls2=self.grader(xf,zf)       
+        cls1 = self.log_softmax(cls1) 
 
         
  
-        cls_loss2 = select_cross_entropy_loss(cls2, labelcls2)
-        cls_loss3 = self.cls3loss(cls3, labelcls3)  
+        cls_loss1 = select_cross_entropy_loss(cls1, labelcls1)
+        cls_loss2 = self.cls3loss(cls2, labelcls2)  
         
         pre_bbox=self.getcentercuda(loc) 
         bbo=self.getcentercuda(labelxff) 
         
         loc_loss=cfg.TRAIN.w1*self.IOULoss(pre_bbox,bbo,weightxff) 
        
-        cls_loss=cfg.TRAIN.w2*cls_loss2+cfg.TRAIN.w3*cls_loss3
+        cls_loss=cfg.TRAIN.w2*cls_loss1+cfg.TRAIN.w3*cls_loss2
  
         
 

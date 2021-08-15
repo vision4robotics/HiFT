@@ -29,14 +29,14 @@ class Targetgenerate():
 
     def get(self,bbox,size):
 
-        labelcls2=np.zeros((1,size,size))-1
+        labelcls1=np.zeros((1,size,size))-1
 
         pre=(16*(np.linspace(0,size-1,size))+63).reshape(-1,1)-cfg.TRAIN.SEARCH_SIZE//2
         pr=np.zeros((size**2,2))
         pr[:,0]=np.maximum(0,np.tile(pre,(size)).T.reshape(-1)+cfg.TRAIN.SEARCH_SIZE//2)
         pr[:,1]=np.maximum(0,np.tile(pre,(size)).reshape(-1)+cfg.TRAIN.SEARCH_SIZE//2)
         labelxff=np.zeros((4, size, size), dtype=np.float32)
-        labelcls3=np.zeros((1,size,size))
+        labelcls2=np.zeros((1,size,size))
         weightxff=np.zeros((1,size,size))
         target=np.array([bbox.x1,bbox.y1,bbox.x2,bbox.y2])
         
@@ -69,15 +69,15 @@ class Targetgenerate():
 
         for ii in np.arange(0,size):
             for jj in np.arange(0,size):
-                  labelcls3[0,ii,jj]=(((ii-(index[1]+index[3])/2))**2+((jj-(index[0]+index[2])/2))**2)
+                  labelcls2[0,ii,jj]=(((ii-(index[1]+index[3])/2))**2+((jj-(index[0]+index[2])/2))**2)
                  
                  
-        see=labelcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]
+        see=labelcls2[np.where(labelcls2<((w//2+h//2)/cfg.TRAIN.R2)**2)]
         
-        labelcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1-((see-see.min())/(see.max()-see.min()+6.25e-6))
-        weightcls3=np.zeros((1,size,size))
-        weightcls3[np.where(labelcls3<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1
-        labelcls3=labelcls3*weightcls3
+        labelcls2[np.where(labelcls2<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1-((see-see.min())/(see.max()-see.min()+6.25e-6))
+        weightcls2=np.zeros((1,size,size))
+        weightcls2[np.where(labelcls2<((w//2+h//2)/cfg.TRAIN.R2)**2)]=1
+        labelcls2=labelcls2*weightcls2
 
 
         def con(x):
@@ -91,15 +91,15 @@ class Targetgenerate():
         labelxff[3,:,:]=(target[3]-pr[:,1]).reshape(11,11)
         labelxff=con(labelxff/(cfg.TRAIN.SEARCH_SIZE//2))
 
-        labelcls2[0,index[1]-h//4:index[3]+1+h//4,index[0]-w//4:index[2]+1+w//4]=-2
-        labelcls2[0,index[1]+h//4:index[3]+1-h//4,index[0]+w//4:index[2]+1-w//4]=1
+        labelcls1[0,index[1]-h//4:index[3]+1+h//4,index[0]-w//4:index[2]+1+w//4]=-2
+        labelcls1[0,index[1]+h//4:index[3]+1-h//4,index[0]+w//4:index[2]+1-w//4]=1
         
-        neg2=np.where(labelcls2.squeeze()==-1)
-        neg2 = self.select(neg2, int(len(np.where(labelcls2==1)[0])*2.5))
-        labelcls2[:,neg2[0][0],neg2[0][1]] = 0
+        neg2=np.where(labelcls1.squeeze()==-1)
+        neg2 = self.select(neg2, int(len(np.where(labelcls1==1)[0])*2.5))
+        labelcls1[:,neg2[0][0],neg2[0][1]] = 0
         
      
-        return  labelcls2,labelxff,labelcls3,weightxff
+        return  labelcls1,labelxff,labelcls2,weightxff
 
 
 
