@@ -258,8 +258,8 @@ def main():
     # load pretrain
     elif cfg.TRAIN.PRETRAINED:
         cur_path = os.path.dirname(os.path.realpath(__file__))
-        backbone_path = os.path.join(cur_path, '../pretrained_models/')
-        load_pretrain(model, backbone_path+'checkpoint00_e36.pth')               
+        model_path = os.path.join(cur_path, '../pretrained_models/')
+        load_pretrain(model, model_path)               
     
     dist_model = nn.DataParallel(model)
     

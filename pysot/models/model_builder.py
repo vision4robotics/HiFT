@@ -30,8 +30,6 @@ class ModelBuilder(nn.Module):
     
             self.zf=zf
             
-       # self.zf1=zf1
-
     
     def track(self, x):
         with t.no_grad():
