@@ -10,7 +10,7 @@ import torch.nn.functional as F
 from pysot.core.config import cfg
 from pysot.models.loss import select_cross_entropy_loss,IOULoss
 from pysot.models.backbone.newalexnet import AlexNet
-from pysot.models.utile.utile import hiftmodule
+from pysot.models.utile.utile import HiFT
 import numpy as np
 
 
@@ -20,7 +20,7 @@ class ModelBuilder(nn.Module):
         super(ModelBuilder, self).__init__()
 
         self.backbone = AlexNet().cuda()
-        self.grader=hiftmodule(cfg).cuda()
+        self.grader=HiFT(cfg).cuda()
         self.cls2loss=nn.BCEWithLogitsLoss()
         self.IOULoss=IOULoss()          
         
@@ -53,9 +53,11 @@ class ModelBuilder(nn.Module):
         return cls
 
 
+
     def getcentercuda(self,mapp):
 
-
+        def con(x):
+            return x*143
         def dcon(x):
            x[t.where(x<=-1)]=-0.99
            x[t.where(x>=1)]=0.99
@@ -66,7 +68,7 @@ class ModelBuilder(nn.Module):
         x=t.Tensor(np.tile((16*(np.linspace(0,size-1,size))+63)-cfg.TRAIN.SEARCH_SIZE//2,size).reshape(-1)).cuda()
         y=t.Tensor(np.tile((16*(np.linspace(0,size-1,size))+63).reshape(-1,1)-cfg.TRAIN.SEARCH_SIZE//2,size).reshape(-1)).cuda()
         
-        shap=dcon(mapp)*(cfg.TRAIN.SEARCH_SIZE//2)
+        shap=dcon(mapp)*143
         
         xx=np.int16(np.tile(np.linspace(0,size-1,size),size).reshape(-1))
         yy=np.int16(np.tile(np.linspace(0,size-1,size).reshape(-1,1),size).reshape(-1))
@@ -84,7 +86,7 @@ class ModelBuilder(nn.Module):
         anchor[:,:,2]=x+w/2
         anchor[:,:,3]=y+h/2
         return anchor
-
+    
 
     def forward(self,data):
         """ only used in training
@@ -102,7 +104,8 @@ class ModelBuilder(nn.Module):
         
         zf = self.backbone(template)
         xf = self.backbone(search)
-        loc,cls1,cls2=self.grader(xf,zf)       
+        loc,cls1,cls2=self.grader(xf,zf)
+       
         cls1 = self.log_softmax(cls1) 
 
         
@@ -113,10 +116,11 @@ class ModelBuilder(nn.Module):
         pre_bbox=self.getcentercuda(loc) 
         bbo=self.getcentercuda(labelxff) 
         
-        loc_loss=cfg.TRAIN.w1*self.IOULoss(pre_bbox,bbo,weightxff) 
+        loc_loss=cfg.TRAIN.w3*self.IOULoss(pre_bbox,bbo,weightxff) 
        
-        cls_loss=cfg.TRAIN.w2*cls_loss1+cfg.TRAIN.w3*cls_loss2
- 
+        cls_loss=cfg.TRAIN.w4*cls_loss1+cfg.TRAIN.w5*cls_loss2
+
+        
         
 
         outputs = {}

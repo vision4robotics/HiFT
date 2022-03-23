@@ -42,37 +42,24 @@ class IOULoss(nn.Module):
         target_top = target[:,:, 1]
         target_right = target[:,:, 2]
         target_bottom = target[:,:, 3]
-        
-        x1 = torch.min(pred_left, pred_right)
-        y1 = torch.min(pred_top, pred_bottom)
-        x2 = torch.max(pred_left, pred_right)
-        y2 = torch.max(pred_top, pred_bottom)
-    
-        xkis1 = torch.max(x1, target_left)
-        ykis1 = torch.max(y1, target_top)
-        xkis2 = torch.min(x2, target_right)
-        ykis2 = torch.min(y2, target_bottom)
-    
-        xc1 = torch.min(x1, target_left)
-        yc1 = torch.min(y1, target_top)
-        xc2 = torch.max(x2, target_right)
-        yc2 = torch.max(y2, target_bottom)
-    
-        intsctk = torch.zeros(x1.size()).cuda()
-        
-        mask = (ykis2 > ykis1) * (xkis2 > xkis1)
-        intsctk[mask] = (xkis2[mask] - xkis1[mask]) * (ykis2[mask] - ykis1[mask])
-        unionk = (x2 - x1) * (y2 - y1) + (target_right - target_left) * (target_bottom - target_top) - intsctk + 1e-7
-        iouk = intsctk / unionk
-    
-        area_c = (xc2 - xc1) * (yc2 - yc1) + 1e-7
-        miouk = iouk - ((area_c - unionk) / area_c)
 
-        losses = 1-miouk
+        target_aera = (target_right-target_left ) * \
+                      (target_bottom-target_top)
+        pred_aera = (pred_right-pred_left ) * \
+                    (pred_bottom-pred_top)
+
+        w_intersect = torch.min(pred_right, target_right)-torch.max(pred_left, target_left) 
+        w_intersect=w_intersect.clamp(min=0)        
+        h_intersect = torch.min(pred_bottom, target_bottom) -torch.max(pred_top, target_top)
+        h_intersect=h_intersect.clamp(min=0)   
+        area_intersect = w_intersect * h_intersect
+        area_union = target_aera + pred_aera - area_intersect
+        ious=((area_intersect ) / (area_union +1e-6)).clamp(min=0)+1e-6
+        
+        losses = 1-ious
         weight=weight.view(losses.size())
         if weight.sum()>0:
             
             return (losses * weight).sum() / (weight.sum()+1e-6)
         else:
             return (losses *weight).sum()
-            

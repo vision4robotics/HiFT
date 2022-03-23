@@ -82,7 +82,7 @@ def main():
                 track_times.append((cv2.getTickCount() - tic)/cv2.getTickFrequency())
                 if idx == 0:
                     cv2.destroyAllWindows()
-                if args.vis and idx > 0:
+                if args.vis:
                     try:
                         gt_bbox = list(map(int, gt_bbox))
                     except:

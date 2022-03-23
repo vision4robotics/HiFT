@@ -80,7 +80,7 @@ def ca():
     txt='groundtruth_rect.txt'
     name_list=os.listdir(path)
     name_list.sort()
-    a=70
+    a=len(name_list)
     b=[]
     for i in range(a):
         b.append(name_list[i])

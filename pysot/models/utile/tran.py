@@ -217,6 +217,11 @@ class TransformerEncoderLayer(Module):
 
         # Implementation of Feedforward model
     
+        self.eles=nn.Sequential(
+                nn.Conv2d(channel, channel,  kernel_size=3, stride=1,padding=1),
+                nn.GroupNorm(32,channel),
+                nn.ReLU(inplace=True),
+                )
         
         self.linear1 = nn.Linear(d_model, dim_feedforward)
         self.dropout = Dropout(dropout)
@@ -237,8 +242,7 @@ class TransformerEncoderLayer(Module):
     def forward(self, src: Tensor,srcc: Tensor, src_mask: Optional[Tensor] = None, src_key_padding_mask: Optional[Tensor] = None) -> Tensor:
         
         b,c,s=src.permute(1,2,0).size()
-        input_feature=self.norm0(src+srcc)
-        src2 = self.self_attn(input_feature, input_feature, src, attn_mask=src_mask,
+        src2 = self.self_attn(self.norm0(src+srcc), self.norm0(src+srcc), src, attn_mask=src_mask,
                                key_padding_mask=src_key_padding_mask)[0]
         src = src + self.dropout1(src2)
         src = self.norm1(src)

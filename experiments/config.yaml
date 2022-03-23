@@ -16,8 +16,8 @@ TRACK:
     PENALTY_K: 0.08
     WINDOW_INFLUENCE: 0.42
     LR: 0.30
-    w1: 1.0
     w2: 1.0
+    w3: 1.0
 
 TRAIN:
     EPOCH: 70  
@@ -32,9 +32,10 @@ TRAIN:
     NUM_WORKERS: 6
     LOC_WEIGHT: 2.4
     CLS_WEIGHT: 1.0
-    w1: 1.0
     w2: 1.0
     w3: 1.0
+    w4: 1.0
+    w5: 1.0
 
     POS_NUM : 16
     TOTAL_NUM : 64

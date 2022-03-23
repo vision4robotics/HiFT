@@ -15,7 +15,7 @@ import cv2
 import numpy as np
 from torch.utils.data import Dataset
 
-from pysot.datasets.anchortarget import Targetgenerate
+from pysot.datasets.anchortarget import AnchorTarget
 
 from pysot.utils.bbox import center2corner, Center
 from pysot.datasets.augmentation import Augmentation
@@ -146,7 +146,7 @@ class TrkDataset(Dataset):
         self.rot=os.getcwd()[0:len(os.getcwd())-5]
         # create sub dataset
         self.all_dataset = []
-        self.target_generate = Targetgenerate()
+        self.anchor_target = AnchorTarget()
         start = 0
         self.num = 0
         for name in cfg.DATASET.NAMES:
@@ -264,7 +264,7 @@ class TrkDataset(Dataset):
                                        gray=gray)
         
         labelcls1,labelxff,labelcls2,weightxff \
-                 = self.target_generate.get(bbox, cfg.TRAIN.OUTPUT_SIZE)
+                 = self.anchor_target.get(bbox, cfg.TRAIN.OUTPUT_SIZE)
         
         
         template = template.transpose((2, 0, 1)).astype(np.float32)

@@ -23,8 +23,6 @@ __C.TRAIN = CN()
 
 __C.TRAIN.THR_HIGH = 0.6
 
-__C.TRAIN.apnchannel = 256
-
 __C.TRAIN.clsandlocchannel = 256
 
 __C.TRAIN.groupchannel = 32
@@ -48,6 +46,10 @@ __C.TRAIN.SHAPE_WEIGHT =2.0
 __C.TRAIN.EXEMPLAR_SIZE = 127
 
 __C.TRAIN.SEARCH_SIZE = 287 #255
+
+__C.TRAIN.OUTPUTFEATURE_SIZE = 11
+
+__C.TRAIN.LABEL_RANGE = 4
 
 __C.TRAIN.BASE_SIZE = 8
 
@@ -79,13 +81,13 @@ __C.TRAIN.WEIGHT_DECAY = 0.0001
 
 __C.TRAIN.w1=1.0
 
-__C.TRAIN.R1=1.5
-
-__C.TRAIN.R2=1.2
-
 __C.TRAIN.w2=1.0
 
 __C.TRAIN.w3=1.0
+
+__C.TRAIN.w4=1.0
+
+__C.TRAIN.w5=1.0
 
 __C.TRAIN.range=2.0
 
@@ -231,10 +233,11 @@ __C.TRACK.WINDOW_INFLUENCE = 0.44
 # Interpolation learning rate
 __C.TRACK.LR = 0.4
 
-__C.TRACK.w1=1.0
+__C.TRACK.w1=1.2 
 
 __C.TRACK.w2=1.0
 
+__C.TRACK.w3=1.6 
 
 __C.TRACK.LARGER=1.4
 # Exemplar size

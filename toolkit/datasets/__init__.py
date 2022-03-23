@@ -7,8 +7,7 @@ class DatasetFactory(object):
     def create_dataset(**kwargs):
         """
         Args:
-            name: dataset name 'OTB2015', 'LaSOT', 'UAV123', 'NFS240', 'NFS30',
-                'VOT2018', 'VOT2016', 'VOT2018-LT'
+            name: dataset name
             dataset_root: dataset root
             load_img: wether to load image
         Return:
@@ -16,15 +15,14 @@ class DatasetFactory(object):
         """
         assert 'name' in kwargs, "should provide dataset name"
         name = kwargs['name']
-        if 'DTB' in name:
+        if 'DTB70' in name:
             dataset = DTBDataset(**kwargs)
-        elif 'UAV10' in name:
+        elif 'UAV10fps' in name:
             dataset = UAV10Dataset(**kwargs)
-        elif 'UAV20' in name:
+        elif 'UAV20l' in name:
             dataset = UAV20Dataset(**kwargs)
         elif 'UAV123' in name:
             dataset = UAVDataset(**kwargs)
-
         else:
             raise Exception("unknow dataset {}".format(kwargs['name']))
         return dataset

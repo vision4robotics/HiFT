@@ -14,7 +14,7 @@ def ca():
     
     name_list=os.listdir(path+'/data_seq')
     name_list.sort()
-    a=123
+    a=len(name_list)
     b=[]
     for i in range(a):
         b.append(name_list[i])

@@ -30,7 +30,7 @@ class HiFTTracker(SiameseTracker):
         size=cfg.TRAIN.OUTPUT_SIZE
         x=np.tile((cfg.ANCHOR.STRIDE*(np.linspace(0,size-1,size))+63)-cfg.TRAIN.SEARCH_SIZE//2,size).reshape(-1)
         y=np.tile((cfg.ANCHOR.STRIDE*(np.linspace(0,size-1,size))+63).reshape(-1,1)-cfg.TRAIN.SEARCH_SIZE//2,size).reshape(-1)
-        shap=(dcon(mapp[0].cpu().detach().numpy()))*(cfg.TRAIN.SEARCH_SIZE//2)
+        shap=(dcon(mapp[0].cpu().detach().numpy()))*143
         xx=np.int16(np.tile(np.linspace(0,size-1,size),size).reshape(-1))
         yy=np.int16(np.tile(np.linspace(0,size-1,size).reshape(-1,1),size).reshape(-1))     
         w=shap[0,yy,xx]+shap[1,yy,xx]
@@ -130,10 +130,9 @@ class HiFTTracker(SiameseTracker):
 
         outputs = self.model.track(x_crop)
         pred_bbox=self.generate_anchor(outputs['loc']).transpose()
-
-        score2 = self._convert_score(outputs['cls1'])*cfg.TRACK.w1
-        score3=(outputs['cls2']).view(-1).cpu().detach().numpy()*cfg.TRACK.w2
-        score=(score2+score3)/2 
+        score1 = self._convert_score(outputs['cls1'])*cfg.TRACK.w2
+        score2=(outputs['cls2']).view(-1).cpu().detach().numpy()*cfg.TRACK.w3
+        score=(score1+score2)/2 
 
 
        
