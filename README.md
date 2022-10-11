@@ -20,7 +20,7 @@ pip install -r requirements.txt
 ```
 
 ### 2. Test
-Download pretrained model: [general_model](https://pan.baidu.com/s/1QeU7OcTqHksZXscBq3skiw)(code: c99t) and put it into `tools/snapshot` directory.
+Download pretrained model: [general_model](https://pan.baidu.com/s/1QeU7OcTqHksZXscBq3skiw)(code: c99t) [general_model_google](https://drive.google.com/file/d/1X8vScXvZ1QohbqzE9EAheQ_yaJCTslSA/view?usp=sharing)and put it into `tools/snapshot` directory.
 
 Download testing datasets and put them into `test_dataset` directory. If you want to test the tracker on a new dataset, please refer to [pysot-toolkit](https://github.com/StrangerZhang/pysot-toolkit) to set test_dataset.
 
@@ -54,7 +54,7 @@ python train.py
 ```
 
 ### 4. Evaluation
-We provide the tracking [results](https://pan.baidu.com/s/1RVSiq7XUJCQnyXtoRq9SYg) (code: tj12) of UAV123@10fps, DTB70, UAV20L, and UAV123. If you want to evaluate the tracker, please put those results into  `results` directory.
+We provide the tracking [results](https://pan.baidu.com/s/1RVSiq7XUJCQnyXtoRq9SYg) (code: tj12) [results_google](https://drive.google.com/file/d/1OjwuX1i-UxzzMxngrDIc-OqY9e9iV2nI/view?usp=sharing) of UAV123@10fps, DTB70, UAV20L, and UAV123. If you want to evaluate the tracker, please put those results into  `results` directory.
 ```
 python eval.py 	                          \
 	--tracker_path ./results          \ # result path
